@@ -28,14 +28,16 @@ public class Main {
 
 	private static List<Row> rowTable = new ArrayList<>();
 
+	private static int tries = 6;
 	private static int triesLeft = 6;
+	
 
 	public static void main(String[] args) {
 		String secretWord = DatabaseManager.getWord();
 		char[] secretWordAsChar = secretWord.toCharArray();
 
-		String inputWord = "";
-		char[] inputWordAsChar = inputWord.toCharArray();
+		String inputWord;
+		boolean GameWon = false;
 
 		rowTable.add(row1);
 		rowTable.add(row2);
@@ -44,9 +46,8 @@ public class Main {
 		rowTable.add(row5);
 		rowTable.add(row6);
 
-		for (int i = 0; i < triesLeft; i++) {
+		for (int i = 0; i < tries; i++) {
 			printRowTable(rowTable);
-			System.out.println(secretWord);
 			inputWord = LogicManager.getWordFromInput(scanner);
 
 			if (inputWord.length() == 5) {
@@ -54,20 +55,22 @@ public class Main {
 			} else {
 				System.out.println("Input word must be 5 characters long.");
 				i--;
+				triesLeft--;
 			}
 
 			LogicManager.clearConsole();
 
 			if (Arrays.equals(rowTable.get(i).getLetters(), secretWordAsChar)) {
-				LogicManager.GameWon();
+				GameWon = true;
+				System.out.println("You WON!");
 				break;
 			}
 		}
 
-		printRowTable(rowTable);
-		if (triesLeft < 1) {
-			LogicManager.GameLost();
+		if (GameWon == false) {
+			System.out.println("Game Lost :( ");
 		}
+		printRowTable(rowTable);
 	}
 
 	public static void printRowTable(List<Row> rowTable) {

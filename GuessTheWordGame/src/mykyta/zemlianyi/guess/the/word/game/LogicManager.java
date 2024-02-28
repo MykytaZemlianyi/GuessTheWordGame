@@ -27,14 +27,6 @@ public class LogicManager {
 		}
 	}
 
-	public static void GameWon() {
-		System.out.println("You WON!");
-	}
-
-	public static void GameLost() {
-		clearConsole();
-		System.out.println("You Lost");
-	}
 
 	public static void updateRowTable(String word, Row row) {
 		row.setLetters(word.toCharArray());
