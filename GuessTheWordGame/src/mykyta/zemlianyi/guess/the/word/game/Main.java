@@ -30,7 +30,6 @@ public class Main {
 
 	private static int tries = 6;
 	private static int triesLeft = 6;
-	
 
 	public static void main(String[] args) {
 		String secretWord = DatabaseManager.getWord();
@@ -47,7 +46,7 @@ public class Main {
 		rowTable.add(row6);
 
 		for (int i = 0; i < tries; i++) {
-			printRowTable(rowTable);
+			Row.printRowTable(rowTable, secretWordAsChar);
 			inputWord = LogicManager.getWordFromInput(scanner);
 
 			if (inputWord.length() == 5) {
@@ -70,13 +69,7 @@ public class Main {
 		if (GameWon == false) {
 			System.out.println("Game Lost :( ");
 		}
-		printRowTable(rowTable);
-	}
-
-	public static void printRowTable(List<Row> rowTable) {
-		for (Row row : rowTable) {
-			row.printRow();
-		}
+		Row.printRowTable(rowTable,secretWordAsChar);
 	}
 
 }
