@@ -6,11 +6,7 @@ import java.util.Scanner;
 
 public class Main {
 	private static Scanner scanner = new Scanner(System.in);
-	private static String secretWord = "mango";
-	private static char[] secretWordAsChar = secretWord.toCharArray();
-
-	private static String inputWord = "track";
-	private static char[] inputWordAsChar = inputWord.toCharArray();
+	
 
 	private static char[] row1WordAsChar = new char[5];
 	private static Row row1 = new Row(row1WordAsChar);
@@ -35,6 +31,12 @@ public class Main {
 	private static int triesLeft = 6;
 
 	public static void main(String[] args) {
+		String secretWord = DatabaseManager.getWord();
+		char[] secretWordAsChar = secretWord.toCharArray();
+
+		String inputWord = "";
+		char[] inputWordAsChar = inputWord.toCharArray();
+
 		rowTable.add(row1);
 		rowTable.add(row2);
 		rowTable.add(row3);
@@ -43,31 +45,19 @@ public class Main {
 		rowTable.add(row6);
 
 		for (int i = 0; i <= triesLeft; i++) {
-			
 			printRowTable(rowTable);
-			printKeyboard();
-			if (i!=triesLeft) {	
-			LogicManager.updateRowTable(LogicManager.getWordFromInput(scanner), rowTable.get(i));
+			System.out.println(secretWord);
+			inputWord = LogicManager.getWordFromInput(scanner);
+			if (i != triesLeft) {
+				LogicManager.updateRowTable(inputWord, rowTable.get(i));
 			}
-			
+			LogicManager.clearConsole();
 		}
 	}
 
 	public static void printRowTable(List<Row> rowTable) {
 		for (Row row : rowTable) {
 			row.printRow();
-		}
-	}
-
-	public static void printKeyboard() {
-		char[][] keyboardLayout = { { 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P' },
-				{ 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L' }, { 'Z', 'X', 'C', 'V', 'B', 'N', 'M' } };
-
-		for (char[] row : keyboardLayout) {
-			for (char key : row) {
-				System.out.print(key + " ");
-			}
-			System.out.println();
 		}
 	}
 

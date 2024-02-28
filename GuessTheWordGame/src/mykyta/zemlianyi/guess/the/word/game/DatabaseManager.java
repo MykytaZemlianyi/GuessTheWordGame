@@ -31,22 +31,36 @@ public class DatabaseManager {
 	}
 
 	public static String getWord() {
-		String result = null;
+		int maxAttempts = 2;
 
+		for (int attempt = 0; attempt < maxAttempts; attempt++) {
+			String result = tryGetWord();
+
+			if (result != null) {
+				markWordAsUsed(result);
+				return result;
+			}
+		}
+
+		return null;
+	}
+
+	private static String tryGetWord() {
 		try (Connection connection = getConnectionToDb()) {
 			String query = "SELECT word FROM " + DB_NAME + " WHERE is_used = false ORDER BY random() LIMIT 1";
 			java.sql.Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
 
 			if (resultSet.next()) {
-				result = resultSet.getString("word");
+				return resultSet.getString("word");
+			} else {
+				markAllWordsAsNotUsed();
+				return null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
-
-		markWordAsUsed(result);
-		return result;
 	}
 
 	public static void addWordsToDatabase(List<String> words) {
@@ -96,9 +110,20 @@ public class DatabaseManager {
 						.prepareStatement("UPDATE " + DB_NAME + " SET is_used = true WHERE word = ?")) {
 
 			preparedStatement.setString(1, wordToUpdate);
-			
+
 			preparedStatement.executeUpdate();
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void markAllWordsAsNotUsed() {
+		try (Connection connection = getConnectionToDb();
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("UPDATE " + DB_NAME + " SET is_used = false")) {
+
+			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
