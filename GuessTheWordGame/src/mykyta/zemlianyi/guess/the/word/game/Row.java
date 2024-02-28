@@ -1,5 +1,7 @@
 package mykyta.zemlianyi.guess.the.word.game;
 
+import java.util.List;
+
 public class Row {
 	private char[] letters;
 	
@@ -21,4 +23,6 @@ public class Row {
     	}
     	System.out.println("");
     }
+
+
 }

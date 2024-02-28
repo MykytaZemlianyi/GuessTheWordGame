@@ -12,34 +12,31 @@ public class LogicManager {
 	}
 
 	public static void clearConsole() {
-        try {
-            final Console console = System.console();
-            
-            if (console != null) {
-                console.writer().print("\033[H\033[2J");
-                console.flush();
-            } else {
-                for (int i = 0; i < 100; ++i) System.out.println();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+		try {
+			final Console console = System.console();
 
-	public void GameWon() {
-		clearConsole();
+			if (console != null) {
+				console.writer().print("\033[H\033[2J");
+				console.flush();
+			} else {
+				for (int i = 0; i < 100; ++i)
+					System.out.println();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void GameWon() {
 		System.out.println("You WON!");
 	}
 
-	public void GameLost() {
+	public static void GameLost() {
 		clearConsole();
 		System.out.println("You Lost");
 	}
 
 	public static void updateRowTable(String word, Row row) {
-		char[] wordToCharArray = word.toCharArray();
-		if (wordToCharArray.length == 5) {
-			row.setLetters(wordToCharArray);
-		}
+		row.setLetters(word.toCharArray());
 	}
 }

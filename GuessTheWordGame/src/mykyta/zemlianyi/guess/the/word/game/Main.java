@@ -1,12 +1,12 @@
 package mykyta.zemlianyi.guess.the.word.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 	private static Scanner scanner = new Scanner(System.in);
-	
 
 	private static char[] row1WordAsChar = new char[5];
 	private static Row row1 = new Row(row1WordAsChar);
@@ -44,14 +44,29 @@ public class Main {
 		rowTable.add(row5);
 		rowTable.add(row6);
 
-		for (int i = 0; i <= triesLeft; i++) {
+		for (int i = 0; i < triesLeft; i++) {
 			printRowTable(rowTable);
 			System.out.println(secretWord);
 			inputWord = LogicManager.getWordFromInput(scanner);
-			if (i != triesLeft) {
+
+			if (inputWord.length() == 5) {
 				LogicManager.updateRowTable(inputWord, rowTable.get(i));
+			} else {
+				System.out.println("Input word must be 5 characters long.");
+				i--;
 			}
+
 			LogicManager.clearConsole();
+
+			if (Arrays.equals(rowTable.get(i).getLetters(), secretWordAsChar)) {
+				LogicManager.GameWon();
+				break;
+			}
+		}
+
+		printRowTable(rowTable);
+		if (triesLeft < 1) {
+			LogicManager.GameLost();
 		}
 	}
 
