@@ -47,7 +47,7 @@ public class Main {
 		rowTable.add(row6);
 
 		for (int i = 0; i < tries; i++) {
-			printRowTable(rowTable);
+			Row.printRowTable(rowTable);
 			inputWord = LogicManager.getWordFromInput(scanner);
 
 			if (inputWord.length() == 5) {
@@ -70,13 +70,9 @@ public class Main {
 		if (GameWon == false) {
 			System.out.println("Game Lost :( ");
 		}
-		printRowTable(rowTable);
+		Row.printRowTable(rowTable);
 	}
 
-	public static void printRowTable(List<Row> rowTable) {
-		for (Row row : rowTable) {
-			row.printRow();
-		}
-	}
+	
 
 }
