@@ -17,16 +17,41 @@ public class Row {
 		this.letters = letters;
 	}
 
-	public void printRow() {
-		for (char letter : letters) {
-			System.out.print("[" + letter + "]");
-		}
-		System.out.println("");
+	public void printRow(char[] secretWordAsChar) {
+	    for (int i = 0; i < letters.length; i++) {
+	        char letter = letters[i];
+
+	     
+	        if (isCharacterMatchAtIndex(letters, secretWordAsChar, i)) {
+	            System.out.print(Colors.ANSI_GREEN + "[" + letter + "]" + Colors.ANSI_RESET);
+	        } else if (isCharacterContainedInSecretWord(letters, secretWordAsChar, i)) {
+	            System.out.print(Colors.ANSI_YELLOW + "[" + letter + "]" + Colors.ANSI_RESET);
+	        } else {
+	            System.out.print("[" + letter + "]");
+	        }
+	    }
+	    System.out.println("");
 	}
 
-	public static void printRowTable(List<Row> rowTable) {
+
+	public static void printRowTable(List<Row> rowTable,char[] secretWordAsChar) {
 		for (Row row : rowTable) {
-			row.printRow();
+			row.printRow(secretWordAsChar);
 		}
 	}
+	
+	public static boolean isCharacterMatchAtIndex(char[] inputWord, char[] secretWord, int index) {
+	    return inputWord[index] == secretWord[index];
+	}
+
+	public static boolean isCharacterContainedInSecretWord(char[] inputWord, char[] secretWord, int index) {
+	    char ch = inputWord[index];
+	    for (char secretChar : secretWord) {
+	        if (secretChar == ch) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+
 }
