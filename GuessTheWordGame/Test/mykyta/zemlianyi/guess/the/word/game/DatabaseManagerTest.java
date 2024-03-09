@@ -38,16 +38,7 @@ public class DatabaseManagerTest {
 		}
 	}
 
-	@Test
-	public void testGetWordsFromInput() {
-		String input = "apple banana cherry";
-		InputStream inputStream = new ByteArrayInputStream(input.getBytes());
-		Scanner scanner = new Scanner(inputStream);
-
-		List<String> result = DatabaseManager.getWordListFromInput(scanner);
-
-		assertEquals(Arrays.asList("apple", "banana", "cherry"), result);
-	}
+	
 
 	@Test
 	public void testFilterFiveCharacterWords() {

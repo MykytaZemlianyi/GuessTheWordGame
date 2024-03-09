@@ -1,6 +1,7 @@
 package mykyta.zemlianyi.guess.the.word.game;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,9 +27,21 @@ public class LogicManager {
 		}
 	}
 
-	public static void updateRowTable(String word, Row row) {
-		row.setLetters(word.toCharArray());
+	public static List<String> getWordListFromInput(Scanner scanner) {
+		List<String> wordsList = new ArrayList<>();
+
+		String input = scanner.nextLine();
+
+		String[] wordsArray = input.split("\\s+");
+
+		for (String word : wordsArray) {
+			wordsList.add(word);
+		}
+
+		return wordsList;
 	}
+
+	
 
 	public static boolean isWordACommand(String inputWord, List<SpecialCommand> SpecialCommandList) {
 		for (int i = 0; i < SpecialCommandList.size(); i++) {
@@ -50,7 +63,7 @@ public class LogicManager {
 			break;
 		case "-add":
 			Scanner scanner = new Scanner(System.in);
-			DatabaseManager.addWordsToDatabase(DatabaseManager.getWordListFromInput(scanner));
+			DatabaseManager.addWordsToDatabase(getWordListFromInput(scanner));
 			break;
 
 		default:

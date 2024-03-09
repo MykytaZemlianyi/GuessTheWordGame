@@ -78,19 +78,7 @@ public class DatabaseManager {
 		}
 	}
 
-	public static List<String> getWordListFromInput(Scanner scanner) {
-		List<String> wordsList = new ArrayList<>();
-
-		String input = scanner.nextLine();
-		
-		String[] wordsArray = input.split("\\s+");
-
-		for (String word : wordsArray) {
-			wordsList.add(word);
-		}
-
-		return wordsList;
-	}
+	
 
 	public static void clearDatabase() {
 		try (Connection connection = getConnectionToDb()) {

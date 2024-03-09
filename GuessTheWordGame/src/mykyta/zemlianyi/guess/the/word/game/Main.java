@@ -64,7 +64,7 @@ public class Main {
 			} else {
 
 				if (inputWord.length() == 5) {
-					LogicManager.updateRowTable(inputWord, rowTable.get(i));
+					Row.updateRowTable(inputWord, rowTable.get(i));
 					LogicManager.clearConsole();
 					i++;
 				}
