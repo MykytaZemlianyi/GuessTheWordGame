@@ -66,8 +66,10 @@ public class Main {
 
 		if (GameWon == false) {
 			System.out.println("Game Lost :( ");
+			System.out.println("Secret word: " + secretWord);
+			
 		}
-		Row.printRowTable(rowTable,secretWordAsChar);
+		Row.printRowTable(rowTable, secretWordAsChar);
 	}
 
 }
