@@ -78,7 +78,7 @@ public class DatabaseManager {
 		}
 	}
 
-	public static List<String> getWordsFromInput(Scanner scanner) {
+	public static List<String> getWordListFromInput(Scanner scanner) {
 		List<String> wordsList = new ArrayList<>();
 
 		String input = scanner.nextLine();

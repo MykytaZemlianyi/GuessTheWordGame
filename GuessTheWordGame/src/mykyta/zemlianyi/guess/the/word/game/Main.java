@@ -29,7 +29,6 @@ public class Main {
 	private static List<Row> rowTable = new ArrayList<>();
 
 	private static int tries = 6;
-	private static int triesLeft = 6;
 
 	public static void main(String[] args) {
 		String secretWord = DatabaseManager.getWord();
@@ -54,7 +53,6 @@ public class Main {
 			} else {
 				System.out.println("Input word must be 5 characters long.");
 				i--;
-				triesLeft--;
 			}
 
 			LogicManager.clearConsole();
