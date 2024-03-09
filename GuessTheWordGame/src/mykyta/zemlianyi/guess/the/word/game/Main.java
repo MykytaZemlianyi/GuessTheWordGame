@@ -56,32 +56,33 @@ public class Main {
 		rowTable.add(row5);
 		rowTable.add(row6);
 
-		for (int i = 0; i < tries;) {
+		for (int i = 0; i < tries; i++) {
 			Row.printRowTable(rowTable, secretWordAsChar);
 			inputWord = LogicManager.getWordFromInput(scanner);
 			if (LogicManager.isWordACommand(inputWord, SpecialCommandList)) {
 				LogicManager.runCommand(inputWord, SpecialCommandList);
+				i--;
+				continue;
 			} else {
 
 				if (inputWord.length() == 5) {
 					Row.updateRowTable(inputWord, rowTable.get(i));
 					LogicManager.clearConsole();
-					i++;
-				}
+				} else
+					i--;
 			}
-
 
 			if (Arrays.equals(rowTable.get(i).getLetters(), secretWordAsChar)) {
 				GameWon = true;
 				System.out.println("You WON!");
 				break;
 			}
+
 		}
 
 		if (GameWon == false) {
-			System.out.println("Game Lost :( ");
+			System.out.println("Game Lost :(");
 			System.out.println("Secret word: " + secretWord);
-
 		}
 		Row.printRowTable(rowTable, secretWordAsChar);
 	}
