@@ -27,7 +27,8 @@ public class DatabaseManagerTest {
 		// Assert
 		// Verify that the words are actually in the database
 		try (Connection connection = databaseManager.getConnectionToDb();
-				PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM \"WordList\".wordlist")) {
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("SELECT * FROM \"WordList\".wordlist")) {
 
 			ResultSet resultSet = preparedStatement.executeQuery();
 			assertTrue(resultSet.next());
@@ -43,7 +44,7 @@ public class DatabaseManagerTest {
 		InputStream inputStream = new ByteArrayInputStream(input.getBytes());
 		Scanner scanner = new Scanner(inputStream);
 
-		List<String> result = DatabaseManager.getWordsFromInput(scanner);
+		List<String> result = DatabaseManager.getWordListFromInput(scanner);
 
 		assertEquals(Arrays.asList("apple", "banana", "cherry"), result);
 	}

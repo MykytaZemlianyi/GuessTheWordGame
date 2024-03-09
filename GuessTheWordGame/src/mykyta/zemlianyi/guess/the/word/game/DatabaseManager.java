@@ -82,7 +82,7 @@ public class DatabaseManager {
 		List<String> wordsList = new ArrayList<>();
 
 		String input = scanner.nextLine();
-
+		
 		String[] wordsArray = input.split("\\s+");
 
 		for (String word : wordsArray) {

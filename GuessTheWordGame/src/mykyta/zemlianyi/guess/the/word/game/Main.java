@@ -27,11 +27,14 @@ public class Main {
 	private static Row row6 = new Row(row6WordAsChar);
 
 	private static List<Row> rowTable = new ArrayList<>();
-	
+
 	private static List<SpecialCommand> SpecialCommandList = new ArrayList<>();
-	private static SpecialCommand command1 = new SpecialCommand("-clear");
-	private static SpecialCommand command2 = new SpecialCommand("-add");
-	private static SpecialCommand command3 = new SpecialCommand("-help");
+	private static SpecialCommand command1 = new SpecialCommand("-help", "");
+
+	private static SpecialCommand command2 = new SpecialCommand("-clear", "Clears Database");
+
+	private static SpecialCommand command3 = new SpecialCommand("-add",
+			"add words from input separated with spaces into database");
 
 	private static int tries = 6;
 
@@ -45,28 +48,28 @@ public class Main {
 		SpecialCommandList.add(command1);
 		SpecialCommandList.add(command2);
 		SpecialCommandList.add(command3);
-		
+
 		rowTable.add(row1);
 		rowTable.add(row2);
 		rowTable.add(row3);
 		rowTable.add(row4);
 		rowTable.add(row5);
 		rowTable.add(row6);
-		
-		
 
-		for (int i = 0; i < tries; i++) {
+		for (int i = 0; i < tries;) {
 			Row.printRowTable(rowTable, secretWordAsChar);
 			inputWord = LogicManager.getWordFromInput(scanner);
-
-			if (inputWord.length() == 5) {
-				LogicManager.updateRowTable(inputWord, rowTable.get(i));
+			if (LogicManager.isWordACommand(inputWord, SpecialCommandList)) {
+				LogicManager.runCommand(inputWord, SpecialCommandList);
 			} else {
-				System.out.println("Input word must be 5 characters long.");
-				i--;
+
+				if (inputWord.length() == 5) {
+					LogicManager.updateRowTable(inputWord, rowTable.get(i));
+					LogicManager.clearConsole();
+					i++;
+				}
 			}
 
-			LogicManager.clearConsole();
 
 			if (Arrays.equals(rowTable.get(i).getLetters(), secretWordAsChar)) {
 				GameWon = true;
@@ -78,7 +81,7 @@ public class Main {
 		if (GameWon == false) {
 			System.out.println("Game Lost :( ");
 			System.out.println("Secret word: " + secretWord);
-			
+
 		}
 		Row.printRowTable(rowTable, secretWordAsChar);
 	}
