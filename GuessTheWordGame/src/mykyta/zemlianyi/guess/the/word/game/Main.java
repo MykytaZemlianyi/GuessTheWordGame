@@ -27,6 +27,11 @@ public class Main {
 	private static Row row6 = new Row(row6WordAsChar);
 
 	private static List<Row> rowTable = new ArrayList<>();
+	
+	private static List<SpecialCommand> SpecialCommandList = new ArrayList<>();
+	private static SpecialCommand command1 = new SpecialCommand("-clear");
+	private static SpecialCommand command2 = new SpecialCommand("-add");
+	private static SpecialCommand command3 = new SpecialCommand("-help");
 
 	private static int tries = 6;
 
@@ -37,12 +42,18 @@ public class Main {
 		String inputWord;
 		boolean GameWon = false;
 
+		SpecialCommandList.add(command1);
+		SpecialCommandList.add(command2);
+		SpecialCommandList.add(command3);
+		
 		rowTable.add(row1);
 		rowTable.add(row2);
 		rowTable.add(row3);
 		rowTable.add(row4);
 		rowTable.add(row5);
 		rowTable.add(row6);
+		
+		
 
 		for (int i = 0; i < tries; i++) {
 			Row.printRowTable(rowTable, secretWordAsChar);
