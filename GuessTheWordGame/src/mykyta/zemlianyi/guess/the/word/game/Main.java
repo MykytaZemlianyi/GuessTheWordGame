@@ -26,6 +26,7 @@ public class Main {
 	public static char[] inputWordAsChar;
 
 	public static void main(String[] args) {
+		boolean GameWon = false;
 
 		row1.setEmptyLetters();
 		row2.setEmptyLetters();
@@ -33,8 +34,6 @@ public class Main {
 		row4.setEmptyLetters();
 		row5.setEmptyLetters();
 		row6.setEmptyLetters();
-
-		boolean GameWon = false;
 
 		SpecialCommandList.add(Constants.COMMAND1);
 		SpecialCommandList.add(Constants.COMMAND2);
