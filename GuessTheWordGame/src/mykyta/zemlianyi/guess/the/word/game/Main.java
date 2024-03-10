@@ -8,23 +8,12 @@ import java.util.Scanner;
 public class Main {
 	private static Scanner scanner = new Scanner(System.in);
 
-	private static char[] row1WordAsChar = new char[5];
-	private static Row row1 = new Row(row1WordAsChar);
-
-	private static char[] row2WordAsChar = new char[5];
-	private static Row row2 = new Row(row2WordAsChar);
-
-	private static char[] row3WordAsChar = new char[5];
-	private static Row row3 = new Row(row3WordAsChar);
-
-	private static char[] row4WordAsChar = new char[5];
-	private static Row row4 = new Row(row4WordAsChar);
-
-	private static char[] row5WordAsChar = new char[5];
-	private static Row row5 = new Row(row5WordAsChar);
-
-	private static char[] row6WordAsChar = new char[5];
-	private static Row row6 = new Row(row6WordAsChar);
+	private static Row row1 = new Row();
+	private static Row row2 = new Row();
+	private static Row row3 = new Row();
+	private static Row row4 = new Row();
+	private static Row row5 = new Row();
+	private static Row row6 = new Row();
 
 	private static List<Row> rowTable = new ArrayList<>();
 
@@ -39,6 +28,14 @@ public class Main {
 	private static int tries = 6;
 
 	public static void main(String[] args) {
+
+		row1.setEmptyLetters();
+		row2.setEmptyLetters();
+		row3.setEmptyLetters();
+		row4.setEmptyLetters();
+		row5.setEmptyLetters();
+		row6.setEmptyLetters();
+
 		String secretWord = DatabaseManager.getWord();
 		char[] secretWordAsChar = secretWord.toCharArray();
 

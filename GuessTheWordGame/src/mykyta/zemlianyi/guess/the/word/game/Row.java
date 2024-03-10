@@ -5,8 +5,7 @@ import java.util.List;
 public class Row {
 	private char[] letters;
 
-	public Row(char[] letters) {
-		this.letters = letters;
+	public Row() {
 	}
 
 	public char[] getLetters() {
@@ -16,7 +15,12 @@ public class Row {
 	public void setLetters(char[] letters) {
 		this.letters = letters;
 	}
-
+	
+	public void setEmptyLetters() {
+		char[] emptyLetters = {' ',' ',' ',' ',' '};
+		this.letters = emptyLetters;
+	}
+	
 	public void printRow(char[] secretWordAsChar) {
 		for (int i = 0; i < letters.length; i++) {
 			char letter = letters[i];
