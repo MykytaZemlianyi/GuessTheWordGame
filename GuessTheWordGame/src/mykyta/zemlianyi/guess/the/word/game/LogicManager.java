@@ -10,6 +10,9 @@ public class LogicManager {
 	public static String getWordFromInput(Scanner scanner) {
 		return scanner.nextLine();
 	}
+	public static char[] inputWordToChar(String inputWord) {
+		return inputWord.toCharArray();
+	}
 
 	public static void clearConsole() {
 		try {

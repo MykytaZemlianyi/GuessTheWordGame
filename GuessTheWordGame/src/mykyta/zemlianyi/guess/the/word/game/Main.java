@@ -40,6 +40,8 @@ public class Main {
 		char[] secretWordAsChar = secretWord.toCharArray();
 
 		String inputWord;
+		char[] inputWordAsChar;
+
 		boolean GameWon = false;
 
 		SpecialCommandList.add(command1);
@@ -56,6 +58,8 @@ public class Main {
 		for (int i = 0; i < tries; i++) {
 			Row.printRowTable(rowTable, secretWordAsChar);
 			inputWord = LogicManager.getWordFromInput(scanner);
+			inputWordAsChar = LogicManager.inputWordToChar(inputWord);
+
 			if (SpecialCommand.isWordACommand(inputWord, SpecialCommandList)) {
 				SpecialCommand.runCommand(inputWord, SpecialCommandList);
 				i--;
