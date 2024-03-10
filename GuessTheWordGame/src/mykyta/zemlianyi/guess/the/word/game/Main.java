@@ -15,17 +15,15 @@ public class Main {
 	private static Row row5 = new Row();
 	private static Row row6 = new Row();
 
-	private static List<Row> rowTable = new ArrayList<>();
+	public static List<Row> rowTable = new ArrayList<>();
 
 	private static List<SpecialCommand> SpecialCommandList = new ArrayList<>();
-	private static SpecialCommand command1 = new SpecialCommand("-help", "");
 
-	private static SpecialCommand command2 = new SpecialCommand("-clear", "Clears Database");
+	public static String secretWord = DatabaseManager.getWord();
+	public static char[] secretWordAsChar = secretWord.toCharArray();
 
-	private static SpecialCommand command3 = new SpecialCommand("-add",
-			"add words from input separated with spaces into database");
-
-	private static int tries = 6;
+	public static String inputWord;
+	public static char[] inputWordAsChar;
 
 	public static void main(String[] args) {
 
@@ -36,17 +34,11 @@ public class Main {
 		row5.setEmptyLetters();
 		row6.setEmptyLetters();
 
-		String secretWord = DatabaseManager.getWord();
-		char[] secretWordAsChar = secretWord.toCharArray();
-
-		String inputWord;
-		char[] inputWordAsChar;
-
 		boolean GameWon = false;
 
-		SpecialCommandList.add(command1);
-		SpecialCommandList.add(command2);
-		SpecialCommandList.add(command3);
+		SpecialCommandList.add(Constants.COMMAND1);
+		SpecialCommandList.add(Constants.COMMAND2);
+		SpecialCommandList.add(Constants.COMMAND3);
 
 		rowTable.add(row1);
 		rowTable.add(row2);
@@ -55,8 +47,8 @@ public class Main {
 		rowTable.add(row5);
 		rowTable.add(row6);
 
-		for (int i = 0; i < tries; i++) {
-			Row.printRowTable(rowTable, secretWordAsChar);
+		for (int i = 0; i < Constants.TRIES; i++) {
+			Row.printRowTable();
 			inputWord = LogicManager.getWordFromInput(scanner);
 			inputWordAsChar = LogicManager.inputWordToChar(inputWord);
 
@@ -67,7 +59,7 @@ public class Main {
 			} else {
 
 				if (inputWord.length() == 5) {
-					Row.updateRowTable(inputWord, rowTable.get(i));
+					Row.updateRowTable(rowTable.get(i));
 					LogicManager.clearConsole();
 				} else
 					i--;
@@ -78,14 +70,13 @@ public class Main {
 				System.out.println("You WON!");
 				break;
 			}
-
 		}
 
 		if (GameWon == false) {
 			System.out.println("Game Lost :(");
 			System.out.println("Secret word: " + secretWord);
 		}
-		Row.printRowTable(rowTable, secretWordAsChar);
+		Row.printRowTable();
 	}
 
 }
