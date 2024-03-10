@@ -59,8 +59,8 @@ public class Main {
 		for (int i = 0; i < tries; i++) {
 			Row.printRowTable(rowTable, secretWordAsChar);
 			inputWord = LogicManager.getWordFromInput(scanner);
-			if (LogicManager.isWordACommand(inputWord, SpecialCommandList)) {
-				LogicManager.runCommand(inputWord, SpecialCommandList);
+			if (SpecialCommand.isWordACommand(inputWord, SpecialCommandList)) {
+				SpecialCommand.runCommand(inputWord, SpecialCommandList);
 				i--;
 				continue;
 			} else {

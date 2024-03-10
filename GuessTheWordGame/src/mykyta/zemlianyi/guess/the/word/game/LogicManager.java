@@ -43,39 +43,6 @@ public class LogicManager {
 
 	
 
-	public static boolean isWordACommand(String inputWord, List<SpecialCommand> SpecialCommandList) {
-		for (int i = 0; i < SpecialCommandList.size(); i++) {
-			if (inputWord.equals(SpecialCommandList.get(i).getCommand())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static void runCommand(String command, List<SpecialCommand> SpecialCommandList) {
-
-		switch (command) {
-		case "-help":
-			printCommandList(SpecialCommandList);
-			break;
-		case "-clear":
-			DatabaseManager.clearDatabase();
-			break;
-		case "-add":
-			Scanner scanner = new Scanner(System.in);
-			DatabaseManager.addWordsToDatabase(getWordListFromInput(scanner));
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	public static void printCommandList(List<SpecialCommand> SpecialCommandList) {
-		for (int i = 0; i < SpecialCommandList.size(); i++) {
-			System.out.println(
-					SpecialCommandList.get(i).getCommand() + "\t" + SpecialCommandList.get(i).getDescription());
-		}
-	}
+	
 
 }
