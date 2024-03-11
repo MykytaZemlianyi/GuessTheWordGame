@@ -28,16 +28,6 @@ public class Main {
 	public static void main(String[] args) {
 		boolean GameWon = false;
 
-		secretWord = new Word();
-
-		try {
-			secretWord.setContent(DatabaseManager.getWord());
-		} catch (NullPointerException e) {
-			System.out.println("Database is empty");
-			System.out.println("Try to add new 5 letter words separated with spaces below");
-			SpecialCommand.runCommand("-add");
-		}
-
 		inputWord = new Word();
 
 		SpecialCommandList.add(Constants.COMMAND1);
@@ -53,6 +43,18 @@ public class Main {
 
 		for (Row row : Main.rowTable) {
 			row.setEmptyLetters();
+		}
+
+		secretWord = new Word();
+
+		try {
+			secretWord.setContent(DatabaseManager.getWord());
+		} catch (NullPointerException e) {
+			System.out.println("Database is empty");
+			System.out.println("Try to add new 5 letter words separated with spaces below");
+			SpecialCommand.runCommand("-add");
+
+			secretWord.setContent(DatabaseManager.getWord());
 		}
 
 		for (int i = 0; i < Constants.TRIES; i++) {
