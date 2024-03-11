@@ -22,8 +22,6 @@ public class Main {
 	public static Word secretWord;
 	public static Word inputWord;
 
-//	 public static String inputWord;
-//	 public static char[] inputWordAsChar;
 
 	public static void main(String[] args) {
 		boolean GameWon = false;
