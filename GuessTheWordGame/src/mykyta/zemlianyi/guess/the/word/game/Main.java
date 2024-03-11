@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-	private static Scanner scanner = new Scanner(System.in);
+	public static Scanner scanner = new Scanner(System.in);
 
 	private static Row row1 = new Row();
 	private static Row row2 = new Row();
@@ -29,16 +29,16 @@ public class Main {
 		boolean GameWon = false;
 
 		secretWord = new Word();
-		secretWord.setContent(DatabaseManager.getWord());
+
+		try {
+			secretWord.setContent(DatabaseManager.getWord());
+		} catch (NullPointerException e) {
+			System.out.println("Database is empty");
+			System.out.println("Try to add new 5 letter words separated with spaces below");
+			SpecialCommand.runCommand("-add");
+		}
 
 		inputWord = new Word();
-
-		row1.setEmptyLetters();
-		row2.setEmptyLetters();
-		row3.setEmptyLetters();
-		row4.setEmptyLetters();
-		row5.setEmptyLetters();
-		row6.setEmptyLetters();
 
 		SpecialCommandList.add(Constants.COMMAND1);
 		SpecialCommandList.add(Constants.COMMAND2);
@@ -51,6 +51,10 @@ public class Main {
 		rowTable.add(row5);
 		rowTable.add(row6);
 
+		for (Row row : Main.rowTable) {
+			row.setEmptyLetters();
+		}
+
 		for (int i = 0; i < Constants.TRIES; i++) {
 
 			System.out.println("Secret Word - " + secretWord.getContent()); // REMOVE
@@ -60,7 +64,7 @@ public class Main {
 
 			if (SpecialCommand.isWordACommand(SpecialCommandList)) {
 				LogicManager.clearConsole();
-				SpecialCommand.runCommand();
+				SpecialCommand.runCommand(inputWord.getContent());
 				i--;
 				continue;
 			} else {

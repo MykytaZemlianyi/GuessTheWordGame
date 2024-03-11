@@ -1,7 +1,6 @@
 package mykyta.zemlianyi.guess.the.word.game;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class SpecialCommand {
 	private String command;
@@ -29,18 +28,20 @@ public class SpecialCommand {
 		return false;
 	}
 
-	public static void runCommand() {
+	public static void runCommand(String command) {
 
-		switch (Main.inputWord.getContent()) {
+		switch (command) {
 		case "-help":
 			printCommandList();
 			break;
 		case "-clear":
 			DatabaseManager.clearDatabase();
+			System.out.println("Database cleared.");
 			break;
 		case "-add":
-			Scanner scanner = new Scanner(System.in);
-			DatabaseManager.addWordsToDatabase(LogicManager.getWordListFromInput(scanner));
+
+			DatabaseManager
+					.addWordsToDatabase(DatabaseManager.filterWords(LogicManager.getWordListFromInput(Main.scanner)));
 			break;
 
 		default:

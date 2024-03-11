@@ -12,11 +12,6 @@ import java.sql.ResultSet;
 
 public class DatabaseManager {
 
-	private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/postgres";
-	private static final String USERNAME = "postgres";
-	private static final String PASSWORD = "1234";
-	private static final String DB_NAME = "\"WordList\".wordlist";
-
 	public DatabaseManager() {
 
 	}
@@ -27,7 +22,7 @@ public class DatabaseManager {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+		return DriverManager.getConnection(Constants.JDBC_URL, Constants.USERNAME, Constants.PASSWORD);
 	}
 
 	public static String getWord() {
@@ -47,7 +42,7 @@ public class DatabaseManager {
 
 	private static String tryGetWord() {
 		try (Connection connection = getConnectionToDb()) {
-			String query = "SELECT word FROM " + DB_NAME + " WHERE is_used = false ORDER BY random() LIMIT 1";
+			String query = "SELECT word FROM " + Constants.DB_NAME + " WHERE is_used = false ORDER BY random() LIMIT 1";
 			java.sql.Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
 
@@ -65,7 +60,7 @@ public class DatabaseManager {
 
 	public static void addWordsToDatabase(List<String> words) {
 		try (Connection connection = getConnectionToDb()) {
-			String query = "INSERT INTO " + DB_NAME + " (word, is_used) VALUES (?, false)";
+			String query = "INSERT INTO " + Constants.DB_NAME + " (word, is_used) VALUES (?, false)";
 
 			try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 				for (String word : words) {
@@ -78,12 +73,10 @@ public class DatabaseManager {
 		}
 	}
 
-	
-
 	public static void clearDatabase() {
 		try (Connection connection = getConnectionToDb()) {
 			try (Statement statement = connection.createStatement()) {
-				String clearQuery = "DELETE FROM \"WordList\".wordlist";
+				String clearQuery = "DELETE FROM " + Constants.DB_NAME;
 				statement.executeUpdate(clearQuery);
 				System.out.println("Database cleared successfully.");
 			}
@@ -95,7 +88,7 @@ public class DatabaseManager {
 	public static void markWordAsUsed(String wordToUpdate) {
 		try (Connection connection = getConnectionToDb();
 				PreparedStatement preparedStatement = connection
-						.prepareStatement("UPDATE " + DB_NAME + " SET is_used = true WHERE word = ?")) {
+						.prepareStatement("UPDATE " + Constants.DB_NAME + " SET is_used = true WHERE word = ?")) {
 
 			preparedStatement.setString(1, wordToUpdate);
 
@@ -109,7 +102,7 @@ public class DatabaseManager {
 	public static void markAllWordsAsNotUsed() {
 		try (Connection connection = getConnectionToDb();
 				PreparedStatement preparedStatement = connection
-						.prepareStatement("UPDATE " + DB_NAME + " SET is_used = false")) {
+						.prepareStatement("UPDATE " + Constants.DB_NAME + " SET is_used = false")) {
 
 			preparedStatement.executeUpdate();
 
