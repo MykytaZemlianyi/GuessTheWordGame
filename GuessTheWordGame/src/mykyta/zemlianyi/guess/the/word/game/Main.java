@@ -17,18 +17,21 @@ public class Main {
 
 	public static List<Row> rowTable = new ArrayList<>();
 
-	private static List<SpecialCommand> SpecialCommandList = new ArrayList<>();
+	public static List<SpecialCommand> SpecialCommandList = new ArrayList<>();
 
 	public static Word secretWord;
+	public static Word inputWord;
 
-	public static String inputWord;
-	public static char[] inputWordAsChar;
+//	 public static String inputWord;
+//	 public static char[] inputWordAsChar;
 
 	public static void main(String[] args) {
 		boolean GameWon = false;
 
 		secretWord = new Word();
 		secretWord.setContent(DatabaseManager.getWord());
+
+		inputWord = new Word();
 
 		row1.setEmptyLetters();
 		row2.setEmptyLetters();
@@ -53,17 +56,16 @@ public class Main {
 			System.out.println("Secret Word - " + secretWord.getContent()); // REMOVE
 
 			Row.printRowTable();
-			inputWord = LogicManager.getWordFromInput(scanner);
-			inputWordAsChar = LogicManager.inputWordToChar(inputWord);
+			inputWord.setContent(LogicManager.getWordFromInput(scanner));
 
-			if (SpecialCommand.isWordACommand(inputWord, SpecialCommandList)) {
+			if (SpecialCommand.isWordACommand(SpecialCommandList)) {
 				LogicManager.clearConsole();
-				SpecialCommand.runCommand(inputWord, SpecialCommandList);
+				SpecialCommand.runCommand();
 				i--;
 				continue;
 			} else {
 
-				if (inputWord.length() == 5) {
+				if (inputWord.getContent().length() == 5) {
 					Row.updateRowTable(rowTable.get(i));
 					LogicManager.clearConsole();
 				} else

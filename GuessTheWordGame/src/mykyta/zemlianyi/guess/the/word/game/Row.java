@@ -48,7 +48,7 @@ public class Row {
 	}
 
 	public static void updateRowTable(Row row) {
-		row.setLetters(Main.inputWordAsChar);
+		row.setLetters(Main.inputWord.getContentAsChar());
 	}
 
 	public boolean isCharacterMatchAtIndex(int index) {

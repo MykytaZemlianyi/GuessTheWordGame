@@ -11,28 +11,29 @@ public class SpecialCommand {
 		this.command = command;
 		this.description = description;
 	}
-	
+
 	public String getCommand() {
 		return command;
 	}
+
 	public String getDescription() {
 		return description;
 	}
-	
-	public static boolean isWordACommand(String inputWord, List<SpecialCommand> SpecialCommandList) {
+
+	public static boolean isWordACommand(List<SpecialCommand> SpecialCommandList) {
 		for (int i = 0; i < SpecialCommandList.size(); i++) {
-			if (inputWord.equals(SpecialCommandList.get(i).getCommand())) {
+			if (Main.inputWord.getContent().equals(SpecialCommandList.get(i).getCommand())) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public static void runCommand(String command, List<SpecialCommand> SpecialCommandList) {
+	public static void runCommand() {
 
-		switch (command) {
+		switch (Main.inputWord.getContent()) {
 		case "-help":
-			printCommandList(SpecialCommandList);
+			printCommandList();
 			break;
 		case "-clear":
 			DatabaseManager.clearDatabase();
@@ -47,10 +48,10 @@ public class SpecialCommand {
 		}
 	}
 
-	public static void printCommandList(List<SpecialCommand> SpecialCommandList) {
-		for (int i = 0; i < SpecialCommandList.size(); i++) {
-			System.out.println(
-					SpecialCommandList.get(i).getCommand() + "\t" + SpecialCommandList.get(i).getDescription());
+	public static void printCommandList() {
+		for (int i = 0; i < Main.SpecialCommandList.size(); i++) {
+			System.out.println(Main.SpecialCommandList.get(i).getCommand() + "\t"
+					+ Main.SpecialCommandList.get(i).getDescription());
 		}
 	}
 }
