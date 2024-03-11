@@ -41,7 +41,7 @@ public class Row {
 	}
 
 	public static void printRowTable() {
-		
+
 		for (Row row : Main.rowTable) {
 			row.printRow();
 		}
@@ -52,17 +52,19 @@ public class Row {
 	}
 
 	public boolean isCharacterMatchAtIndex(int index) {
-		if (Main.secretWordAsChar != null && index >= 0 && index < Main.secretWordAsChar.length) {
+		if (Main.secretWord.getContentAsChar() != null && index >= 0
+				&& index < Main.secretWord.getContentAsChar().length) {
 
-			return Main.secretWordAsChar[index] == letters[index];
+			return Main.secretWord.getContentAsChar()[index] == letters[index];
 		}
 		return false;
 	}
 
 	public boolean isCharacterContainedInSecretWord(int index) {
-		if (Main.secretWordAsChar != null && index >= 0 && index < Main.secretWordAsChar.length) {
+		if (Main.secretWord.getContentAsChar() != null && index >= 0
+				&& index < Main.secretWord.getContentAsChar().length) {
 			char ch = letters[index];
-			for (char secretChar : Main.secretWordAsChar) {
+			for (char secretChar : Main.secretWord.getContentAsChar()) {
 				if (secretChar == ch) {
 					return true;
 				}

@@ -19,14 +19,16 @@ public class Main {
 
 	private static List<SpecialCommand> SpecialCommandList = new ArrayList<>();
 
-	public static String secretWord = DatabaseManager.getWord();
-	public static char[] secretWordAsChar = secretWord.toCharArray();
+	public static Word secretWord;
 
 	public static String inputWord;
 	public static char[] inputWordAsChar;
 
 	public static void main(String[] args) {
 		boolean GameWon = false;
+
+		secretWord = new Word();
+		secretWord.setContent(DatabaseManager.getWord());
 
 		row1.setEmptyLetters();
 		row2.setEmptyLetters();
@@ -47,11 +49,15 @@ public class Main {
 		rowTable.add(row6);
 
 		for (int i = 0; i < Constants.TRIES; i++) {
+
+			System.out.println("Secret Word - " + secretWord.getContent()); // REMOVE
+
 			Row.printRowTable();
 			inputWord = LogicManager.getWordFromInput(scanner);
 			inputWordAsChar = LogicManager.inputWordToChar(inputWord);
 
 			if (SpecialCommand.isWordACommand(inputWord, SpecialCommandList)) {
+				LogicManager.clearConsole();
 				SpecialCommand.runCommand(inputWord, SpecialCommandList);
 				i--;
 				continue;
@@ -62,9 +68,10 @@ public class Main {
 					LogicManager.clearConsole();
 				} else
 					i--;
+				LogicManager.clearConsole();
 			}
 
-			if (Arrays.equals(rowTable.get(i).getLetters(), secretWordAsChar)) {
+			if (Arrays.equals(rowTable.get(i).getLetters(), secretWord.getContentAsChar())) {
 				GameWon = true;
 				System.out.println("You WON!");
 				break;
@@ -73,7 +80,7 @@ public class Main {
 
 		if (GameWon == false) {
 			System.out.println("Game Lost :(");
-			System.out.println("Secret word: " + secretWord);
+			System.out.println("Secret word: " + secretWord.getContent());
 		}
 		Row.printRowTable();
 	}
