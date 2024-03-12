@@ -47,16 +47,16 @@ public class Main {
 		try {
 			secretWord.setContent(DatabaseManager.getWord());
 		} catch (NullPointerException e) {
+
 			System.out.println("Database is empty");
 			System.out.println("Try to add new 5 letter words separated with spaces below");
+
 			SpecialCommand.runCommand("-add", SpecialCommandList);
 
 			secretWord.setContent(DatabaseManager.getWord());
 		}
 
 		for (int i = 0; i < Constants.TRIES; i++) {
-
-			System.out.println("Secret Word - " + secretWord.getContent()); // REMOVE
 
 			Row.printRowTable(rowTable, secretWord);
 			inputWord.setContent(LogicManager.getWordFromInput(scanner));
