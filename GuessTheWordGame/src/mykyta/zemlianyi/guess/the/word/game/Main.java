@@ -15,13 +15,12 @@ public class Main {
 	private static Row row5 = new Row();
 	private static Row row6 = new Row();
 
-	public static List<Row> rowTable = new ArrayList<>();
+	private static List<Row> rowTable = new ArrayList<>();
 
-	public static List<SpecialCommand> SpecialCommandList = new ArrayList<>();
+	private static List<SpecialCommand> SpecialCommandList = new ArrayList<>();
 
-	public static Word secretWord;
-	public static Word inputWord;
-
+	private static Word secretWord;
+	private static Word inputWord;
 
 	public static void main(String[] args) {
 		boolean GameWon = false;
@@ -50,7 +49,7 @@ public class Main {
 		} catch (NullPointerException e) {
 			System.out.println("Database is empty");
 			System.out.println("Try to add new 5 letter words separated with spaces below");
-			SpecialCommand.runCommand("-add");
+			SpecialCommand.runCommand("-add", SpecialCommandList);
 
 			secretWord.setContent(DatabaseManager.getWord());
 		}
@@ -59,18 +58,18 @@ public class Main {
 
 			System.out.println("Secret Word - " + secretWord.getContent()); // REMOVE
 
-			Row.printRowTable();
+			Row.printRowTable(rowTable, secretWord);
 			inputWord.setContent(LogicManager.getWordFromInput(scanner));
 
-			if (SpecialCommand.isWordACommand(SpecialCommandList)) {
+			if (SpecialCommand.isWordACommand(SpecialCommandList, inputWord)) {
 				LogicManager.clearConsole();
-				SpecialCommand.runCommand(inputWord.getContent());
+				SpecialCommand.runCommand(inputWord.getContent(), SpecialCommandList);
 				i--;
 				continue;
 			} else {
 
 				if (inputWord.getContent().length() == 5) {
-					Row.updateRowTable(rowTable.get(i));
+					Row.updateRowTable(rowTable.get(i), inputWord);
 					LogicManager.clearConsole();
 				} else
 					i--;
@@ -88,7 +87,7 @@ public class Main {
 			System.out.println("Game Lost :(");
 			System.out.println("Secret word: " + secretWord.getContent());
 		}
-		Row.printRowTable();
+		Row.printRowTable(rowTable, secretWord);
 	}
 
 }

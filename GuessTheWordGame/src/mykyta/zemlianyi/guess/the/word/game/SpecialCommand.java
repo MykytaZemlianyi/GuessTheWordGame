@@ -19,20 +19,20 @@ public class SpecialCommand {
 		return description;
 	}
 
-	public static boolean isWordACommand(List<SpecialCommand> SpecialCommandList) {
+	public static boolean isWordACommand(List<SpecialCommand> SpecialCommandList, Word inputWord) {
 		for (int i = 0; i < SpecialCommandList.size(); i++) {
-			if (Main.inputWord.getContent().equals(SpecialCommandList.get(i).getCommand())) {
+			if (inputWord.getContent().equals(SpecialCommandList.get(i).getCommand())) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public static void runCommand(String command) {
+	public static void runCommand(String command, List<SpecialCommand> SpecialCommandList) {
 
 		switch (command) {
 		case "-help":
-			printCommandList();
+			printCommandList(SpecialCommandList);
 			break;
 		case "-clear":
 			DatabaseManager.clearDatabase();
@@ -49,10 +49,10 @@ public class SpecialCommand {
 		}
 	}
 
-	public static void printCommandList() {
-		for (int i = 0; i < Main.SpecialCommandList.size(); i++) {
-			System.out.println(Main.SpecialCommandList.get(i).getCommand() + "\t"
-					+ Main.SpecialCommandList.get(i).getDescription());
+	public static void printCommandList(List<SpecialCommand> SpecialCommandList) {
+		for (int i = 0; i < SpecialCommandList.size(); i++) {
+			System.out.println(
+					SpecialCommandList.get(i).getCommand() + "\t" + SpecialCommandList.get(i).getDescription());
 		}
 	}
 }
